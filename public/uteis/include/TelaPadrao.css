@@ -1,0 +1,7 @@
+.custom-container {
+    width: 900px;
+    height: calc(100vh - 90px);
+    margin: 30px auto 0; /* Centraliza horizontalmente e define a margem superior */
+    background-color: #f0f0f0;
+    padding: 10px;
+}
