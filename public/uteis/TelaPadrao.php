@@ -20,7 +20,10 @@ class TelaPadrao {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../../classes/cultura/cultura.php">Culturas</a>
+                    <a class="nav-link" aria-current="page" href="../../classes/cultura/Cultura.php">Culturas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="../../classes/lancamento/Lancamento.php">Movimentações</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Financeiro</a>
@@ -44,6 +47,8 @@ class TelaPadrao {
     }
 
     public function renderizar($conteudoCallback) {
+        $_SESSION['id_propriedade'] = 1;
+
         $this->cabecalho();
         $conteudoCallback();
         $this->rodape();
