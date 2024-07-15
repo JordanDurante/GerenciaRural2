@@ -1,5 +1,12 @@
 <?php
 require_once '../../uteis/TelaPadrao.php';
+error_reporting(1);
+
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
 
 class TelaInicial extends TelaPadrao {
     public function conteudo() {
@@ -19,7 +26,6 @@ class TelaInicial extends TelaPadrao {
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Carregar notícias
         fetch("../../uteis/obterDados/ObterDados.php?tipo=noticias")
             .then(response => response.json())
             .then(data => {
@@ -44,7 +50,6 @@ class TelaInicial extends TelaPadrao {
             })
             .catch(error => console.error('Erro ao carregar notícias:', error));
 
-        // Carregar cotações
         fetch("../../uteis/obterDados/ObterDados.php?tipo=cotacoes")
             .then(response => response.json())
             .then(data => {

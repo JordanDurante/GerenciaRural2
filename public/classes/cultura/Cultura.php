@@ -1,6 +1,13 @@
 <?php
 require_once '../../uteis/TelaPadrao.php';
-require_once '../../../config/bd_connection.php'; // Conexão com o banco de dados
+require_once '../../../config/bd_connection.php';
+error_reporting(1);
+
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
 
 class Cultura extends TelaPadrao {
     private $conn;
@@ -92,7 +99,6 @@ class Cultura extends TelaPadrao {
                     Editar
                 </button>
 
-                <!-- Modal de Edição -->
                 <div class="modal fade" id="editarModal<?php echo $cultura['id']; ?>" tabindex="-1" aria-labelledby="editarModalLabel<?php echo $cultura['id']; ?>" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -114,7 +120,6 @@ class Cultura extends TelaPadrao {
                     </div>
                 </div>
 
-                <!-- Modal de Confirmação de Exclusão -->
                 <div class="modal fade" id="confirmarExclusaoModal<?php echo $cultura['id']; ?>" tabindex="-1" aria-labelledby="confirmarExclusaoModalLabel<?php echo $cultura['id']; ?>" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -141,12 +146,10 @@ class Cultura extends TelaPadrao {
     </tbody>
 </table>
 
-<!-- Botão para adicionar nova cultura -->
 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#adicionarModal">
     Adicionar Nova Cultura
 </button>
 
-<!-- Modal de Adição -->
 <div class="modal fade" id="adicionarModal" tabindex="-1" aria-labelledby="adicionarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -172,7 +175,6 @@ class Cultura extends TelaPadrao {
     }
 }
 
-// Iniciar a sessão
 session_start();
 
 $pagina = new Cultura($conn);

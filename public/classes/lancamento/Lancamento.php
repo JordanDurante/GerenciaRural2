@@ -1,6 +1,13 @@
 <?php
 require_once '../../uteis/TelaPadrao.php';
-require_once '../../../config/bd_connection.php'; // Conexão com o banco de dados
+require_once '../../../config/bd_connection.php';
+error_reporting(1);
+
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
 
 class Lancamento extends TelaPadrao {
     private $conn;
@@ -112,7 +119,6 @@ class Lancamento extends TelaPadrao {
                     Editar
                 </button>
 
-                <!-- Modal de Edição -->
                 <div class="modal fade" id="editarModal<?php echo $lancamento['id']; ?>" tabindex="-1" aria-labelledby="editarModalLabel<?php echo $lancamento['id']; ?>" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -175,7 +181,6 @@ class Lancamento extends TelaPadrao {
                     </div>
                 </div>
 
-                <!-- Modal de Confirmação de Exclusão -->
                 <div class="modal fade" id="confirmarExclusaoModal<?php echo $lancamento['id']; ?>" tabindex="-1" aria-labelledby="confirmarExclusaoModalLabel<?php echo $lancamento['id']; ?>" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -202,12 +207,10 @@ class Lancamento extends TelaPadrao {
     </tbody>
 </table>
 
-<!-- Botão para Adicionar Novo Lançamento -->
 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#adicionarModal">
     Adicionar Novo
 </button>
 
-<!-- Modal de Adição -->
 <div class="modal fade" id="adicionarModal" tabindex="-1" aria-labelledby="adicionarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
