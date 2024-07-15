@@ -60,11 +60,20 @@ class TelaGestaoFinanceira extends TelaPadrao {
                     </div>
                 </div>
             </form>
+            <div class="mb-4">
+                <button type="button" class="btn btn-secondary" onclick="exportarParaPDF()">Exportar para PDF</button>
+            </div>
 
             <div id="tabela-resultados">
                 <?php $this->mostrar($data_inicio_default, $data_fim_default); ?>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
         <script>
             function aplicarFiltro() {
@@ -89,6 +98,39 @@ class TelaGestaoFinanceira extends TelaPadrao {
                     },
                     error: function() {
                         alert('Erro ao carregar os dados.');
+                    }
+                });
+            }
+
+            function exportarParaPDF() {
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const tabelaHTML = document.getElementById('tabela-resultados').innerHTML;
+
+                const sanitizedHTML = DOMPurify.sanitize(tabelaHTML);
+                console.log(sanitizedHTML);
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = sanitizedHTML;
+                tempDiv.querySelectorAll('table, th, td').forEach((el) => {
+                    el.removeAttribute('class');
+                    el.style.border = '1px solid black';
+                    el.style.padding = '4px';
+                    el.style.color = 'black';
+                });
+                tempDiv.querySelectorAll('table').forEach((el) => {
+                    el.style.width = '100%';
+                });
+
+                const cleanHTML = tempDiv.innerHTML;
+                doc.html(cleanHTML, {
+                    callback: function (doc) {
+                        doc.save('gestao_financeira.pdf');
+                    },
+                    x: 10,
+                    y: 10,
+                    html2canvas: {
+                        scale: 0.38
                     }
                 });
             }
@@ -141,18 +183,18 @@ class TelaGestaoFinanceira extends TelaPadrao {
                     <tr>
                         <th>ID</th>
                         <th>Tipo</th>
+                        <th>Cultura</th>
                         <th>Data</th>
-                        <th>Valor (R$)</th>
                         <th>Quantidade</th>
                         <th>Unidade</th>
-                        <th>Cultura</th>
+                        <th>Valor (R$)</th>
                     </tr>
                 </thead>
                 <tbody>';
         
         echo "<tr>
-                <td colspan='3'><strong>Saldo Anterior</strong></td>
-                <td colspan='4'><strong>" . number_format($saldo_anterior, 2, ',', '.') . "</strong></td>
+                <td colspan='6'><strong>Saldo Anterior</strong></td>
+                <td colspan='2'><strong>" . number_format($saldo_anterior, 2, ',', '.') . "</strong></td>
                 </tr>";
 
         while ($row = $result->fetch_assoc()) {
@@ -160,19 +202,19 @@ class TelaGestaoFinanceira extends TelaPadrao {
             echo "<tr>
                     <td>{$row['id']}</td>
                     <td>{$row['tipo']}</td>
+                    <td>{$row['cultura']}</td>
                     <td>{$row['data_formatada']}</td>
-                    <td>" . number_format($row['valor'], 2, ',', '.') . "</td>
                     <td>{$row['quantidade']}</td>
                     <td>{$row['unidade']}</td>
-                    <td>{$row['cultura']}</td>
+                    <td>" . number_format($row['valor'], 2, ',', '.') . "</td>
                     </tr>";
         }
         
         $saldo_final = $saldo_anterior + $saldo_periodo;
 
         echo "<tr>
-                <td colspan='3'><strong>Saldo Final</strong></td>
-                <td colspan='4'><strong>" . number_format($saldo_final, 2, ',', '.') . "</strong></td>
+                <td colspan='6'><strong>Saldo Final</strong></td>
+                <td colspan='2'><strong>" . number_format($saldo_final, 2, ',', '.') . "</strong></td>
                 </tr>";
 
         echo '</tbody>
