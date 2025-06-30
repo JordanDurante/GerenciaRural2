@@ -34,10 +34,10 @@ class Login extends TelaPadrao {
             $senha = $_POST['senha'];
 
             if ($this->validarLogin($login, $senha)) {
-                header("Location: ../../classes/telaInicial/TelaInicial.php");
+                header("Location: ../../public/classes/telaInicial/TelaInicial.php");
                 exit;
             } else {
-                echo "<div class='alert alert-danger' role='alert'>Login ou senha inv�lidos.</div>";
+                echo "<div class='alert alert-danger' role='alert'>Login ou senha inválidos.</div>";
             }
         }
 ?>
@@ -59,9 +59,23 @@ class Login extends TelaPadrao {
         </div>
 <?php
     }
+    public function autenticar() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $login = $_POST['login'];
+            $senha = $_POST['senha'];
+
+            if ($this->validarLogin($login, $senha)) {
+                // Redireciona antes de qualquer saída
+                header("Location: /public/classes/telaInicial/TelaInicial.php");
+                exit;
+            }
+        }
+    }
+
 }
 
 session_start();
 $tela = new Login($conn);
+$tela->autenticar(); 
 $tela->renderizar([$tela, 'mostrarConteudo']);
 ?>

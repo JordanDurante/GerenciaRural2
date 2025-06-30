@@ -1,15 +1,14 @@
 <?php
-$servername = "localhost";
-$username = "seu_usuario";
-$password = "sua_senha";
-$database = "nome_do_seu_banco_de_dados";
+$servername = "db";
+$username = "root";
+$password = "root";
+$database = "gerenciarural";
+$port = 3306;
 
-// Criar conexão
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $database, $port, null);
 
-// Verificar conexão
 if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+    die("ConexÃ£o falhou: " . $conn->connect_error);
 }
-echo "Conectado com sucesso";
+
 ?>

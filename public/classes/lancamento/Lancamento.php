@@ -17,9 +17,8 @@ class Lancamento extends TelaPadrao {
     }
 
     private function obterLancamentos($idPropriedade) {
-        $stmt = $this->conn->prepare("SELECT lf.id, lf.tipo, lf.data, lf.valor, lf.quantidade, u.nome AS unidade, u.id AS idUnidade, c.nome AS cultura, c.id as idCultura
+        $stmt = $this->conn->prepare("SELECT lf.id, lf.tipo, lf.data, lf.valor, lf.quantidade, lf.unidade AS unidade, c.nome AS cultura, c.id as idCultura
                                       FROM lancamento_financeiro lf
-                                      INNER JOIN unidade u ON lf.id_unidade = u.id
                                       INNER JOIN cultura c ON lf.id_cultura = c.id
                                       WHERE lf.id_propriedade = ?");
         $stmt->bind_param("i", $idPropriedade);
@@ -87,7 +86,7 @@ class Lancamento extends TelaPadrao {
             }
         }
 ?>
-<h1>Lançamentos Financeiros</h1>
+<h1>Lanï¿½amentos Financeiros</h1>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -98,7 +97,7 @@ class Lancamento extends TelaPadrao {
             <th>Quantidade</th>
             <th>Unidade</th>
             <th>Cultura</th>
-            <th>Ações</th>
+            <th>Aï¿½ï¿½es</th>
         </tr>
     </thead>
     <tbody>
@@ -123,7 +122,7 @@ class Lancamento extends TelaPadrao {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editarModalLabel<?php echo $lancamento['id']; ?>">Editar Lançamento</h5>
+                                <h5 class="modal-title" id="editarModalLabel<?php echo $lancamento['id']; ?>">Editar Lanï¿½amento</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -133,7 +132,7 @@ class Lancamento extends TelaPadrao {
                                         <label for="tipo<?php echo $lancamento['id']; ?>" class="form-label">Tipo</label>
                                         <select class="form-select" id="tipo<?php echo $lancamento['id']; ?>" name="tipo" required>
                                             <option value="entrada" <?php echo ($lancamento['tipo'] == 'entrada') ? 'selected' : ''; ?>>Entrada</option>
-                                            <option value="saida" <?php echo ($lancamento['tipo'] == 'saida') ? 'selected' : ''; ?>>Saída</option>
+                                            <option value="saida" <?php echo ($lancamento['tipo'] == 'saida') ? 'selected' : ''; ?>>Saï¿½da</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
@@ -185,11 +184,11 @@ class Lancamento extends TelaPadrao {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="confirmarExclusaoModalLabel<?php echo $lancamento['id']; ?>">Confirmar Exclusão</h5>
+                                <h5 class="modal-title" id="confirmarExclusaoModalLabel<?php echo $lancamento['id']; ?>">Confirmar Exclusï¿½o</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Tem certeza que deseja excluir este lançamento?
+                                Tem certeza que deseja excluir este lanï¿½amento?
                             </div>
                             <div class="modal-footer">
                                 <form method="post">
@@ -215,7 +214,7 @@ class Lancamento extends TelaPadrao {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="adicionarModalLabel">Adicionar Novo Lançamento</h5>
+                <h5 class="modal-title" id="adicionarModalLabel">Adicionar Novo Lanï¿½amento</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -224,7 +223,7 @@ class Lancamento extends TelaPadrao {
                         <label for="tipo" class="form-label">Tipo</label>
                         <select class="form-select" id="tipo" name="tipo" required>
                             <option value="entrada">Entrada</option>
-                            <option value="saida">Saída</option>
+                            <option value="saida">Saï¿½da</option>
                         </select>
                     </div>
                     <div class="mb-3">

@@ -13,15 +13,15 @@ class TelaInicial extends TelaPadrao {
 ?>
 <h1>Tela Inicial</h1>
 <div class="news-section">
-    <h2>Últimas Notícias</h2>
+    <h2>Ãšltimas NotÃ­cias</h2>
     <div class="row" id="news-content">
-        <!-- Notícias serão carregadas aqui -->
+        <!-- NotÃ­cias serÃ£o carregadas aqui -->
     </div>
 </div>
 <div class="quotes-section mt-4">
-    <h2>Cotações de Produtos</h2>
+    <h2>CotaÃ§Ãµes de Produtos</h2>
     <div class="row" id="quotes-content">
-        <!-- Cotações serão carregadas aqui -->
+        <!-- CotaÃ§Ãµes serÃ£o carregadas aqui -->
     </div>
 </div>
 <script>
@@ -31,7 +31,7 @@ class TelaInicial extends TelaPadrao {
             .then(data => {
                 const newsContent = document.getElementById("news-content");
                 if (data.length === 0) {
-                    newsContent.innerHTML = "<p>Nenhuma notícia disponível.</p>";
+                    newsContent.innerHTML = "<p>Nenhuma notÃ­cia disponÃ­vel.</p>";
                 } else {
                     data.forEach(noticia => {
                         const noticiaElement = document.createElement("div");
@@ -48,14 +48,14 @@ class TelaInicial extends TelaPadrao {
                     });
                 }
             })
-            .catch(error => console.error('Erro ao carregar notícias:', error));
+            .catch(error => console.error('Erro ao carregar notÃ­cias:', error));
 
         fetch("../../uteis/obterDados/ObterDados.php?tipo=cotacoes")
             .then(response => response.json())
             .then(data => {
                 const quotesContent = document.getElementById("quotes-content");
                 if (data.length === 0) {
-                    quotesContent.innerHTML = "<p>Nenhuma cotação disponível.</p>";
+                    quotesContent.innerHTML = "<p>Nenhuma cotaÃ§Ã£o disponÃ­vel.</p>";
                 } else {
                     const cotacoesElement = document.createElement("div");
                     cotacoesElement.className = "col-12";
@@ -65,7 +65,7 @@ class TelaInicial extends TelaPadrao {
                     quotesContent.appendChild(cotacoesElement);
                 }
             })
-            .catch(error => console.error('Erro ao carregar cotações:', error));
+            .catch(error => console.error('Erro ao carregar cotaÃ§Ãµes:', error));
     });
 </script>
 <?php

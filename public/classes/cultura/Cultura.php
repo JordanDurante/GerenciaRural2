@@ -17,9 +17,10 @@ class Cultura extends TelaPadrao {
     }
 
     private function obterCulturas($idPropriedade) {
-        $stmt = $this->conn->prepare("SELECT id, nome
-                                      FROM cultura 
-                                      WHERE id_propriedade = ?");
+        $stmt = $this->conn->prepare("SELECT c.id, c.nome
+                                      FROM cultura c
+                                      LEFT JOIN propriedade_cultura pc ON c.id = pc.id_cultura
+                                      WHERE pc.id_propriedade = ?");
         $stmt->bind_param("i", $idPropriedade);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -83,7 +84,7 @@ class Cultura extends TelaPadrao {
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Ações</th>
+            <th>Aï¿½ï¿½es</th>
         </tr>
     </thead>
     <tbody>
@@ -124,7 +125,7 @@ class Cultura extends TelaPadrao {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="confirmarExclusaoModalLabel<?php echo $cultura['id']; ?>">Confirmar Exclusão</h5>
+                                <h5 class="modal-title" id="confirmarExclusaoModalLabel<?php echo $cultura['id']; ?>">Confirmar Exclusï¿½o</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">

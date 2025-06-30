@@ -22,11 +22,11 @@ class TelaGestaoFinanceira extends TelaPadrao {
         $data_fim_default = date('Y-m-d');
         ?>
         <div class="container">
-            <h2>Gestão Financeira</h2>
+            <h2>Gestï¿½o Financeira</h2>
             <form id="filtro-form">
                 <div class="row mb-4 align-items-end">
                     <div class="col">
-                        <label for="data_inicio" class="form-label">Data Início</label>
+                        <label for="data_inicio" class="form-label">Data Inï¿½cio</label>
                         <input type="date" id="data_inicio" name="data_inicio" class="form-control" value="<?php echo $data_inicio_default; ?>">
                     </div>
                     <div class="col">
@@ -38,7 +38,7 @@ class TelaGestaoFinanceira extends TelaPadrao {
                         <select id="tipo" name="tipo" class="form-select">
                             <option value="">Todos</option>
                             <option value="entrada">Entrada</option>
-                            <option value="saida">Saída</option>
+                            <option value="saida">Saï¿½da</option>
                         </select>
                     </div>
                     <div class="col">
@@ -155,9 +155,8 @@ class TelaGestaoFinanceira extends TelaPadrao {
             $saldo_anterior = $row['saldo'];
         }
 
-        $query = "SELECT lf.id, lf.tipo, DATE_FORMAT(lf.data, '%d/%m/%Y') AS data_formatada, lf.valor, lf.quantidade, u.nome AS unidade, c.nome AS cultura
+        $query = "SELECT lf.id, lf.tipo, DATE_FORMAT(lf.data, '%d/%m/%Y') AS data_formatada, lf.valor, lf.quantidade, lf.unidade, c.nome AS cultura
                     FROM lancamento_financeiro lf
-                    LEFT JOIN unidade u ON lf.id_unidade = u.id
                     LEFT JOIN cultura c ON lf.id_cultura = c.id
                     WHERE lf.id_propriedade = {$_SESSION['id_propriedade']}";
 
